@@ -1,0 +1,4 @@
+const DEFAULT={news:[{title:'Tech Info-এ স্বাগতম',text:'এখানে News, Photo এবং Official Website Link প্রকাশ করা যাবে।'}],photos:[],links:[]};
+const get=()=>{try{return JSON.parse(localStorage.getItem('techInfoData'))||DEFAULT}catch(e){return DEFAULT}};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function render(){const d=get();newsGrid.innerHTML=d.news.map(x=>`<article class="card"><h3>${esc(x.title)}</h3><p>${esc(x.text)}</p></article>`).join('')||'<p>No news yet.</p>';photoGrid.innerHTML=d.photos.map(x=>`<article class="card"><img src="${esc(x.url)}" alt="${esc(x.title)}"><h3>${esc(x.title)}</h3></article>`).join('')||'<p>No photos yet.</p>';linkGrid.innerHTML=d.links.map(x=>`<div class="link"><b>${esc(x.name)}</b><a href="${esc(x.url)}" target="_blank" rel="noopener">Visit Official Site</a></div>`).join('')||'<p>No links yet.</p>'}render();
